@@ -15,7 +15,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { orderSchema } from "./validation/orderSchema";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import axios from "axios";
 
 const serviceNameEnum = {
@@ -103,10 +102,6 @@ export default function CategoryOrderForm({
     let dataDate = formatDate(data.startTime);
     data.startTime = dataDate;
 
-    console.log("this is new date " + data.startTime);
-
-    console.log("this is api url " + process.env.insertOrderApiUrl);
-
     try {
       axios
         .post(process.env.insertOrderApiUrl, data, {
@@ -115,7 +110,6 @@ export default function CategoryOrderForm({
           },
         })
         .then((response) => {
-          console.log("insertOrder() response", response);
           if(response.data.status === 'success') {
             router.push({
               pathname:"/order/orderConfirmation",
@@ -124,12 +118,9 @@ export default function CategoryOrderForm({
           }
         })
         .catch((err) => {
-          console.log(err);
-        
         });
     } catch (err) {
-      console.log("[ERROR] insertOrder(), Error: ", err);
-      reject(err);
+      // reject(err);
     }
   };
 
@@ -141,7 +132,7 @@ export default function CategoryOrderForm({
             <Steps className="pt-5 gap-3 itemsCenter">
               <Steps.Step color="primary">下订单</Steps.Step>
               <Steps.Step>订单确认</Steps.Step>
-              <Steps.Step>订单状态</Steps.Step>
+              <Steps.Step>订单详情</Steps.Step>
               <Steps.Step>客户反馈</Steps.Step>
             </Steps>
           </main>
