@@ -1,6 +1,6 @@
 import styles from "../../styles/Home.module.css";
 import { Steps, Divider, Input, Link } from "react-daisyui";
-import orderStatus from "../order/orderStatusEnum";
+import orderStatus from "../../components/orderStatusEnum";
 import Image from 'next/image'
 
 const OrderSuccess = (props) => {

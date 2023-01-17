@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import FooterPage from "../components/Footer";
 import { useForm, Controller, register } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { registrationSchema } from "./validation/registrationSchema";
+import { registrationSchema } from "../../components/validation/registrationSchema";
 import axios from "axios";
 
 // This gets called on every request

@@ -12,7 +12,7 @@ import FooterPage from "../components/Footer";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { orderSchema } from "./validation/orderSchema";
+import { orderSchema } from "../../components/validation/orderSchema";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
