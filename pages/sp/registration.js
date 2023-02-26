@@ -393,7 +393,7 @@ export default function ServiceProviderRegistration({
               年
             </div>
 
-            <div className="pl-2 pt-2 pb-2">
+            <div className="pl-2 pt-2 pb-2 pr-5">
               <label className="label">
                 <span className="label-text"> 自我介绍(Self intro): </span>
               </label>
@@ -404,7 +404,7 @@ export default function ServiceProviderRegistration({
                   <Textarea
                     type="textarea"
                     placeholder=""
-                    className="resize-x input-bordered"
+                    className="w-full pr-10 input-bordered"
                     onChange={(value) => {
                       field.onChange(value);
                     }}
