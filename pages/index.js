@@ -16,10 +16,11 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          必应 - 生活 <a href="http://www.biying.life">欢迎您!</a>
-        </h1>
-
+        <div className="bg-indigo-100">
+           <div className="h-100 max-w-100 rounded-100">
+              <img src="beingindex.jpeg" />
+           </div>
+        </div> 
         <p className={styles.description}>竭诚为您提供最优质的服务</p>
         <div className="grid gap-10">
            <CategoryCard image="family.png" category="1" altMessage="安家服务" title="安家服务" services="服务覆盖：机场接送，租房服务，搬家服务，家具安装，手续办理，子女入学，驾驶培训，其他生活咨询" />

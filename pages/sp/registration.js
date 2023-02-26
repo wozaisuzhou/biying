@@ -414,7 +414,7 @@ export default function ServiceProviderRegistration({
               <p className="pt-2 text-red-400">{errors.selfIntro?.message}</p>
             </div>
 
-            <div className="collapse collapse-arrow pb-2">
+            <div className="collapse collapse-arrow pb-2 pr-10">
               <input type="checkbox" />
               <div className="collapse-title text-l font-medium">
                 请选择您愿意提供的服务
