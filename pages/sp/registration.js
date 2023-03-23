@@ -129,9 +129,11 @@ export default function ServiceProviderRegistration({
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div>
-          <div className="flex w-full items-center justify-center pt-20">
-            <h1 className={styles.title}>必应 - 生活</h1>
-          </div>
+          <div className="bg-indigo-100">
+           <div className="h-100 max-w-100 rounded-100">
+              <img src="../beingindex.jpeg" />
+           </div>
+          </div> 
           <div className="flex w-full items-center justify-center pt-5">
             <h2 className={styles.subTitle}>Service provider 申请表</h2>
           </div>
