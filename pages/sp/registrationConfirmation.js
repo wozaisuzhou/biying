@@ -15,7 +15,8 @@ export default function ServiceProviderRegistrationConfirmation() {
           <title>必应 - 生活 App</title>
           <meta
             name="description"
-            content="Biying - life App can resolve all your problems!"
+            http-equiv="Content-Security-Policy" 
+            content="upgrade-insecure-requests"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
