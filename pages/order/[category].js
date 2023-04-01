@@ -96,7 +96,6 @@ export default function CategoryOrderForm({
     return subCategory.parentId == categoryId;
   });
 
-  const deserializedSslConfiguredAgent = flatted.parse(sslConfiguredAgent);
   const filterPassedTime = (time) => {
     const currentDate = new Date();
     const selectedDate = new Date(time);
