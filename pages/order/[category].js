@@ -77,8 +77,10 @@ export async function getServerSideProps({ req, res }) {
   const allProvinces = allProvinceData.data;
   const allCities = allCitiesData.data;
 
+  const serializedSslConfiguredAgent = flatted.stringify(sslConfiguredAgent);
+
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent} };
+  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent:serializedSslConfiguredAgent} };
 }
 
 export default function CategoryOrderForm({
@@ -95,6 +97,7 @@ export default function CategoryOrderForm({
     return subCategory.parentId == categoryId;
   });
 
+  const deserializedSslConfiguredAgent = flatted.parse(sslConfiguredAgent);
   const filterPassedTime = (time) => {
     const currentDate = new Date();
     const selectedDate = new Date(time);
@@ -123,7 +126,7 @@ export default function CategoryOrderForm({
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: sslConfiguredAgent,
+          httpsAgent: deserializedSslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {
