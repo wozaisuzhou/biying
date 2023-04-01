@@ -29,22 +29,28 @@ const serviceNameEnum = {
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
+
+  const sslConfiguredAgent = new https.Agent(process.httpOptions);
+
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
       fetch(process.env.allCategoriesApiUrl, {
         headers: {
           Accept: "application/json",
         },
+        agent: sslConfiguredAgent,
       }),
       fetch(process.env.allProvincesApiUrl, {
         headers: {
           Accept: "application/json",
         },
+        agent: sslConfiguredAgent,
       }),
       fetch(process.env.allCitiesApiUrl, {
         headers: {
           Accept: "application/json",
         },
+        agent: sslConfiguredAgent,
       }),
     ]);
 
@@ -108,6 +114,7 @@ export default function CategoryOrderForm({
           headers: {
             "Content-Type": "application/json",
           },
+          agent: sslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {

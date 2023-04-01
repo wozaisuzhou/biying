@@ -18,6 +18,9 @@ import axios from "axios";
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
+
+  const sslConfiguredAgent = new https.Agent(process.httpOptions);
+
   // Fetch data from external API
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
@@ -25,16 +28,19 @@ export async function getServerSideProps({ req, res }) {
         headers: {
           Accept: "application/json",
         },
+        agent: sslConfiguredAgent,
       }),
       fetch(process.env.allProvincesApiUrl, {
         headers: {
           Accept: "application/json",
         },
+        agent: sslConfiguredAgent,
       }),
       fetch(process.env.allCitiesApiUrl, {
         headers: {
           Accept: "application/json",
         },
+        agent: sslConfiguredAgent,
       }),
     ]);
 
@@ -98,6 +104,7 @@ export default function ServiceProviderRegistration({
           headers: {
             "Content-Type": "application/json",
           },
+          agent: sslConfiguredAgent,
         })
         .then((response) => {
           console.log("the response is " + response.status);
