@@ -35,6 +35,7 @@ export async function getServerSideProps({ req, res }) {
   }
 
   const sslConfiguredAgent = new https.Agent(httpOptions);
+
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
       fetch(process.env.allCategoriesApiUrl, {
@@ -71,16 +72,17 @@ export async function getServerSideProps({ req, res }) {
   const allCategories = categoriesData.data;
   const allProvinces = allProvinceData.data;
   const allCities = allCitiesData.data;
+  const httpSslConfiguredAgent = sslConfiguredAgent;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent } };
+  return { props: { allCategories, allProvinces, allCities, httpSslConfiguredAgent} };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
-  sslConfiguredAgent
+  httpSslConfiguredAgent
 }) {
   const router = useRouter();
 
@@ -118,7 +120,7 @@ export default function ServiceProviderRegistration({
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: sslConfiguredAgent,
+          httpsAgent: httpSslConfiguredAgent,
         })
         .then((response) => {
           console.log("the response is " + response.status);
