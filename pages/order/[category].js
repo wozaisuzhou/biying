@@ -40,6 +40,8 @@ export async function getServerSideProps({ req, res }) {
     key: keyValue,
     rejectUnauthorized: false,
   });
+
+
   
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
@@ -78,17 +80,14 @@ export async function getServerSideProps({ req, res }) {
   const allProvinces = allProvinceData.data;
   const allCities = allCitiesData.data;
 
-  const serializedSslConfiguredAgent = flatted.stringify(sslConfiguredAgent);
-
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent:serializedSslConfiguredAgent} };
+  return { props: { allCategories, allProvinces, allCities} };
 }
 
 export default function CategoryOrderForm({
   allCategories,
   allProvinces,
-  allCities,
-  sslConfiguredAgent
+  allCities
 }) {
   const [verificationCode, setVerificationCode] = useState("");
 

@@ -69,14 +69,13 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent} };
+  return { props: { allCategories, allProvinces, allCities} };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
-  allCities,
-  sslConfiguredAgent
+  allCities
 }) {
   const router = useRouter();
 
