@@ -83,7 +83,7 @@ export async function getServerSideProps({ req, res }) {
           });
         });
     } catch (err) {
-       reject(err);
+       console.log("this is error" + err);
     }
   };
 
