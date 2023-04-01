@@ -32,7 +32,7 @@ export async function getServerSideProps({ req, res }) {
     rejectUnauthorized: false,
   }
 
-  const sslConfiguredAgent = new https.Agent(process.httpOptions);
+  const sslConfiguredAgent = new https.Agent(httpOptions);
 
   // Fetch data from external API
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
