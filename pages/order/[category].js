@@ -76,17 +76,16 @@ export async function getServerSideProps({ req, res }) {
   const allCategories = categoriesData.data;
   const allProvinces = allProvinceData.data;
   const allCities = allCitiesData.data;
-  const httpSslConfiguredAgent = sslConfiguredAgent;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, httpSslConfiguredAgent} };
+  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent} };
 }
 
 export default function CategoryOrderForm({
   allCategories,
   allProvinces,
   allCities,
-  httpSslConfiguredAgent
+  sslConfiguredAgent
 }) {
   const [verificationCode, setVerificationCode] = useState("");
 
@@ -124,7 +123,7 @@ export default function CategoryOrderForm({
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: httpSslConfiguredAgent,
+          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {

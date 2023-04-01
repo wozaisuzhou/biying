@@ -25,7 +25,7 @@ export async function getServerSideProps({ req, res }) {
   const certValue = await fs.readFileSync('../server/ssl/cert.pem');
   const keyValue = await fs.readFileSync('../server/ssl/key.pem');
   
-  const sslConfiguredAgent = new https.Agent({
+  const sslConfiguredAgent = await new https.Agent({
     cert: certValue,
     key: keyValue,
     rejectUnauthorized: false,
@@ -67,17 +67,16 @@ export async function getServerSideProps({ req, res }) {
   const allCategories = categoriesData.data;
   const allProvinces = allProvinceData.data;
   const allCities = allCitiesData.data;
-  const httpSslConfiguredAgent = sslConfiguredAgent;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, httpSslConfiguredAgent} };
+  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent} };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
-  httpSslConfiguredAgent
+  sslConfiguredAgent
 }) {
   const router = useRouter();
 
@@ -115,7 +114,7 @@ export default function ServiceProviderRegistration({
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: httpSslConfiguredAgent,
+          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           console.log("the response is " + response.status);
