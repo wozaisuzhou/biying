@@ -35,7 +35,7 @@ export async function getServerSideProps({ req, res }) {
     //   from the filesystem for every call, it can be quite expensive. Instead
     //   consider storing these in memory
     cert: fs.readFileSync('../server/ssl/cert.pem'),
-    key: fs.readFileSync('../server/ssl/key.pem'),
+    key:  fs.readFileSync('../server/ssl/key.pem'),
     // passphrase:
     //   '',
     // in test, if you're working with self-signed certificates
@@ -128,7 +128,7 @@ export default function CategoryOrderForm({
           headers: {
             "Content-Type": "application/json",
           },
-          agent: httpSslConfiguredAgent,
+          httpsAgent: httpSslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {
