@@ -42,7 +42,6 @@ export async function getServerSideProps({ req, res }) {
     //   '',
     // in test, if you're working with self-signed certificates
     rejectUnauthorized: false,
-    keepAlive:false,
   }
 
   const sslConfiguredAgent = new https.Agent(httpOptions);
@@ -124,13 +123,15 @@ export default function CategoryOrderForm({
     data.startTime = dataDate;
 
     try {
-      axios
-        .post(process.env.insertOrderApiUrl, data, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          httpsAgent: sslConfiguredAgent,
-        })
+      fetch(process.env.insertOrderApiUrl, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        agent: sslConfiguredAgent,
+        body: JSON.stringify(data),
+        
+      })
         .then((response) => {
           if(response.data.status === 'success') {
             router.push({

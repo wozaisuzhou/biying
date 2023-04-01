@@ -114,12 +114,13 @@ export default function ServiceProviderRegistration({
     console.log(JSON.stringify(data));
 
     try {
-      axios
-        .post(process.env.insertServiceProviderUrl, data, {
+      fetch(process.env.insertServiceProviderUrl, {
+          method: 'POST',
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: sslConfiguredAgent,
+          agent: sslConfiguredAgent,
+          body: JSON.stringify(data),
         })
         .then((response) => {
           console.log("the response is " + response.status);
