@@ -35,14 +35,8 @@ export async function getServerSideProps({ req, res }) {
     // when using this code in production, for high throughput you should not read
     //   from the filesystem for every call, it can be quite expensive. Instead
     //   consider storing these in memory
-    cert: fs.readFileSync(
-      path.resolve(__dirname, '~/server/ssl/cert.pem'),
-      `utf-8`,
-    ),
-    key: fs.readFileSync(
-      path.resolve(__dirname, '~/server/ssl/key.pem'),
-      'utf-8',
-    ),
+    cert: fs.readFileSync('~/server/ssl/cert.pem'),
+    key: fs.readFileSync( '~/server/ssl/key.pem'),
     // passphrase:
     //   '',
     // in test, if you're working with self-signed certificates
