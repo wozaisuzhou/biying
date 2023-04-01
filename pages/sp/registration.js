@@ -136,7 +136,7 @@ export default function ServiceProviderRegistration({
           });
         });
     } catch (err) {
-       reject(err);
+      console.log('this is err ' + err);
     }
   };
 
