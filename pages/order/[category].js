@@ -128,7 +128,7 @@ export default function CategoryOrderForm({
           headers: {
             "Content-Type": "application/json",
           },
-          httpAgent: sslConfiguredAgent,
+          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {

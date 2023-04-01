@@ -118,7 +118,7 @@ export default function ServiceProviderRegistration({
           headers: {
             "Content-Type": "application/json",
           },
-          httpAgent: sslConfiguredAgent,
+          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           console.log("the response is " + response.status);
