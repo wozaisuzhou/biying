@@ -17,7 +17,6 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import fs from 'fs';
-import https from 'https';
 
 const serviceNameEnum = {
   1: "安家服务",
@@ -28,24 +27,23 @@ const serviceNameEnum = {
   6: "维修保养",
 };
 
+const httpOptions = {
+  // when using this code in production, for high throughput you should not read
+  //   from the filesystem for every call, it can be quite expensive. Instead
+  //   consider storing these in memory
+  cert: fs.readFileSync('../server/ssl/cert.pem'),
+  key: fs.readFileSync('../server/ssl/key.pem'),
+  // passphrase:
+  //   '',
+  // in test, if you're working with self-signed certificates
+  rejectUnauthorized: false,
+}
+
+const sslConfiguredAgent = new https.Agent(httpOptions);
+
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
-
-  const httpOptions = {
-    // when using this code in production, for high throughput you should not read
-    //   from the filesystem for every call, it can be quite expensive. Instead
-    //   consider storing these in memory
-    cert: fs.readFileSync('../server/ssl/cert.pem'),
-    key: fs.readFileSync( '../server/ssl/key.pem'),
-    // passphrase:
-    //   '',
-    // in test, if you're working with self-signed certificates
-    rejectUnauthorized: false,
-  }
-
-  const sslConfiguredAgent = new https.Agent(httpOptions);
-
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
       fetch(process.env.allCategoriesApiUrl, {
@@ -123,15 +121,13 @@ export default function CategoryOrderForm({
     data.startTime = dataDate;
 
     try {
-      fetch(process.env.insertOrderApiUrl, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        agent: sslConfiguredAgent,
-        body: JSON.stringify(data),
-        
-      })
+      axios
+        .post(process.env.insertOrderApiUrl, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          agent: sslConfiguredAgent,
+        })
         .then((response) => {
           if(response.data.status === 'success') {
             router.push({
@@ -143,7 +139,7 @@ export default function CategoryOrderForm({
         .catch((err) => {
         });
     } catch (err) {
-      // reject(err);
+        reject(err);
     }
   };
 

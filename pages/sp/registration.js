@@ -18,25 +18,25 @@ import axios from "axios";
 import fs from 'fs';
 import https from 'https';
 
+const httpOptions = {
+  // when using this code in production, for high throughput you should not read
+  //   from the filesystem for every call, it can be quite expensive. Instead
+  //   consider storing these in memory
+  cert: fs.readFileSync('../server/ssl/cert.pem'),
+  key: fs.readFileSync('../server/ssl/key.pem'),
+  // passphrase:
+  //   '',
+  // in test, if you're working with self-signed certificates
+  rejectUnauthorized: false,
+}
+
+const sslConfiguredAgent = new https.Agent(httpOptions);
+
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
-
-  const httpOptions = {
-    // when using this code in production, for high throughput you should not read
-    //   from the filesystem for every call, it can be quite expensive. Instead
-    //   consider storing these in memory
-    cert: fs.readFileSync('../server/ssl/cert.pem'),
-    key: fs.readFileSync('../server/ssl/key.pem'),
-    // passphrase:
-    //   '',
-    // in test, if you're working with self-signed certificates
-    rejectUnauthorized: false,
-    keepAlive:false,
-  }
-
-  const sslConfiguredAgent = new https.Agent(httpOptions);
-
   // Fetch data from external API
+
+
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
       fetch(process.env.allCategoriesApiUrl, {
@@ -114,13 +114,12 @@ export default function ServiceProviderRegistration({
     console.log(JSON.stringify(data));
 
     try {
-      fetch(process.env.insertServiceProviderUrl, {
-          method: 'POST',
+      axios
+        .post(process.env.insertServiceProviderUrl, data, {
           headers: {
             "Content-Type": "application/json",
           },
-          agent: sslConfiguredAgent,
-          body: JSON.stringify(data),
+          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           console.log("the response is " + response.status);
@@ -136,7 +135,7 @@ export default function ServiceProviderRegistration({
           });
         });
     } catch (err) {
-      console.log('this is err ' + err);
+       reject(err);
     }
   };
 
