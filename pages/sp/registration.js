@@ -16,6 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { registrationSchema } from "../../components/validation/registrationSchema";
 import axios from "axios";
 import fs from 'fs';
+import https from 'https';
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
