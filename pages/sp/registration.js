@@ -31,6 +31,7 @@ export async function getServerSideProps({ req, res }) {
     //   '',
     // in test, if you're working with self-signed certificates
     rejectUnauthorized: false,
+    keepAlive:false,
   }
 
   const sslConfiguredAgent = new https.Agent(httpOptions);
