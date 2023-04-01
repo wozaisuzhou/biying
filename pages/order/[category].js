@@ -16,6 +16,7 @@ import { orderSchema } from "../../components/validation/orderSchema";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
+import fs from 'fs';
 
 const serviceNameEnum = {
   1: "安家服务",
@@ -29,6 +30,24 @@ const serviceNameEnum = {
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
+
+  const httpOptions = {
+    // when using this code in production, for high throughput you should not read
+    //   from the filesystem for every call, it can be quite expensive. Instead
+    //   consider storing these in memory
+    cert: fs.readFileSync(
+      path.resolve(__dirname, '~/server/ssl/cert.pem'),
+      `utf-8`,
+    ),
+    key: fs.readFileSync(
+      path.resolve(__dirname, '~/server/ssl/key.pem'),
+      'utf-8',
+    ),
+    // passphrase:
+    //   '',
+    // in test, if you're working with self-signed certificates
+    rejectUnauthorized: false,
+  }
 
   const sslConfiguredAgent = new https.Agent(process.httpOptions);
 

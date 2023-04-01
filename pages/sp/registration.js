@@ -15,10 +15,29 @@ import { useForm, Controller, register } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registrationSchema } from "../../components/validation/registrationSchema";
 import axios from "axios";
+import fs from 'fs';
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
 
+  const httpOptions = {
+    // when using this code in production, for high throughput you should not read
+    //   from the filesystem for every call, it can be quite expensive. Instead
+    //   consider storing these in memory
+    cert: fs.readFileSync(
+      path.resolve(__dirname, '~/server/ssl/cert.pem'),
+      `utf-8`,
+    ),
+    key: fs.readFileSync(
+      path.resolve(__dirname, '~/server/ssl/key.pem'),
+      'utf-8',
+    ),
+    // passphrase:
+    //   '',
+    // in test, if you're working with self-signed certificates
+    rejectUnauthorized: false,
+  }
+  
   const sslConfiguredAgent = new https.Agent(process.httpOptions);
 
   // Fetch data from external API
