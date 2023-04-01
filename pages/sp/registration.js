@@ -18,25 +18,23 @@ import axios from "axios";
 import fs from 'fs';
 import https from 'https';
 
-const httpOptions = {
-  // when using this code in production, for high throughput you should not read
-  //   from the filesystem for every call, it can be quite expensive. Instead
-  //   consider storing these in memory
-  cert: fs.readFileSync('../server/ssl/cert.pem'),
-  key: fs.readFileSync('../server/ssl/key.pem'),
-  // passphrase:
-  //   '',
-  // in test, if you're working with self-signed certificates
-  rejectUnauthorized: false,
-}
-
-const sslConfiguredAgent = new https.Agent(httpOptions);
-
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
 
+  const httpOptions = {
+    // when using this code in production, for high throughput you should not read
+    //   from the filesystem for every call, it can be quite expensive. Instead
+    //   consider storing these in memory
+    cert: fs.readFileSync('../server/ssl/cert.pem'),
+    key: fs.readFileSync('../server/ssl/key.pem'),
+    // passphrase:
+    //   '',
+    // in test, if you're working with self-signed certificates
+    rejectUnauthorized: false,
+  }
 
+  const sslConfiguredAgent = new https.Agent(httpOptions);
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
       fetch(process.env.allCategoriesApiUrl, {
@@ -75,13 +73,14 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities } };
+  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent } };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
+  sslConfiguredAgent
 }) {
   const router = useRouter();
 
