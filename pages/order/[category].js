@@ -36,11 +36,10 @@ export async function getServerSideProps({ req, res }) {
   const keyValue = await fs.readFileSync('../server/ssl/key.pem');
   
   const sslConfiguredAgent = new https.Agent({
-    cert: certValue,
-    key: keyValue,
+    cert: fs.readFileSync('../server/ssl/cert.pem'),
+    key: fs.readFileSync('../server/ssl/key.pem'),
     rejectUnauthorized: false,
   });
-
 
   
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =

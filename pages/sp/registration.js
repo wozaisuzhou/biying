@@ -21,13 +21,10 @@ import https from 'https';
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
-
-  const certValue = await fs.readFileSync('../server/ssl/cert.pem');
-  const keyValue = await fs.readFileSync('../server/ssl/key.pem');
   
-  const sslConfiguredAgent = await new https.Agent({
-    cert: certValue,
-    key: keyValue,
+  const sslConfiguredAgent = new https.Agent({
+    cert: fs.readFileSync('../server/ssl/cert.pem'),
+    key: fs.readFileSync('../server/ssl/key.pem'),
     rejectUnauthorized: false,
   });
 
