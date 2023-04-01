@@ -30,7 +30,7 @@ const serviceNameEnum = {
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
-  httpOptions = {
+  const httpOptions = {
     // when using this code in production, for high throughput you should not read
     //   from the filesystem for every call, it can be quite expensive. Instead
     //   consider storing these in memory
