@@ -56,50 +56,6 @@ export async function getServerSideProps({ req, res }) {
     allCitiesResponse.json(),
   ]);
 
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=3600, stale-while-revalidate=86400"
-  );
-
-  const allCategories = categoriesData.data;
-  const allProvinces = allProvinceData.data;
-  const allCities = allCitiesData.data;
-
-  // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, sslConfiguredAgent} };
-}
-
-export default function ServiceProviderRegistration({
-  allCategories,
-  allProvinces,
-  allCities,
-  sslConfiguredAgent
-}) {
-  const router = useRouter();
-
-  const [categoriesArr, setCategories] = useState([]);
-
-  const addCategoryId = (categoryId) => {
-    setCategories([...categoriesArr, categoryId]);
-  };
-
-  const removeCategoryId = (categoryId) => {
-    const index = categoriesArr.indexOf(categoryId);
-    categoriesArr.splice(index, 1);
-    setCategories(categoriesArr);
-  };
-
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    defaultValues: {
-      categories: [],
-    },
-    resolver: yupResolver(registrationSchema),
-  });
-
   const onSubmit = (data) => {
     let categories = categoriesArr.join(",");
     data.categories = categories;
@@ -130,6 +86,52 @@ export default function ServiceProviderRegistration({
        reject(err);
     }
   };
+
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=3600, stale-while-revalidate=86400"
+  );
+
+  const allCategories = categoriesData.data;
+  const allProvinces = allProvinceData.data;
+  const allCities = allCitiesData.data;
+
+  // Pass data to the page via props
+  return { props: { allCategories, allProvinces, allCities, onSubmit} };
+}
+
+export default function ServiceProviderRegistration({
+  allCategories,
+  allProvinces,
+  allCities,
+  onSubmit
+}) {
+  const router = useRouter();
+
+  const [categoriesArr, setCategories] = useState([]);
+
+  const addCategoryId = (categoryId) => {
+    setCategories([...categoriesArr, categoryId]);
+  };
+
+  const removeCategoryId = (categoryId) => {
+    const index = categoriesArr.indexOf(categoryId);
+    categoriesArr.splice(index, 1);
+    setCategories(categoriesArr);
+  };
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      categories: [],
+    },
+    resolver: yupResolver(registrationSchema),
+  });
+
+  
 
   return (
     <>
