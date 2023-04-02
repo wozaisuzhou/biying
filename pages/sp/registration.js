@@ -71,14 +71,15 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, httpOptions} };
+  return { props: { allCategories, allProvinces, allCities, httpOptions, agent: sslConfiguredAgent} };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
-  httpOptions
+  httpOptions,
+  agent
 }) {
   const router = useRouter();
 
@@ -110,7 +111,7 @@ export default function ServiceProviderRegistration({
     data.categories = categories;
     console.log(JSON.stringify(data));
 
-  
+    console.log("this is agent object" + agent.JSON);
 
     try {
       axios
@@ -118,7 +119,7 @@ export default function ServiceProviderRegistration({
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: new https.Agent(httpOptions),
+          httpsAgent: agent,
         })
         .then((response) => {
           console.log("the response is " + response.status);
