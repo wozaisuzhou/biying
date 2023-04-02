@@ -110,9 +110,9 @@ export default function ServiceProviderRegistration({
     data.categories = categories;
     console.log(JSON.stringify(data));
 
-    const sslConfiguredAgent = new https.Agent(httpOptions);
+    const postSslConfiguredAgent = new https.Agent(httpOptions);
 
-    console.log("this is httpsAgent" + sslConfiguredAgent.options);
+    console.log("this is httpsAgent" + postSslConfiguredAgent.options);
 
     try {
       axios
@@ -120,7 +120,7 @@ export default function ServiceProviderRegistration({
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: sslConfiguredAgent,
+          httpsAgent: postSslConfiguredAgent,
         })
         .then((response) => {
           console.log("the response is " + response.status);
