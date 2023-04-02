@@ -82,7 +82,7 @@ export default function ServiceProviderRegistration({
 }) {
   const router = useRouter();
 
-  console.log("this is httpoptions" + httpOptions.json());
+  console.log("this is httpoptions" + httpOptions);
 
   const sslConfiguredAgent = new https.Agent(httpOptions);
 
