@@ -91,7 +91,7 @@ export default function CategoryOrderForm({
 }) {
   const [verificationCode, setVerificationCode] = useState("");
 
-  const sslConfiguredAgent = https.Agent(httpOptions);
+  const sslConfiguredAgent = new https.Agent(httpOptions);
 
   const router = useRouter();
   const categoryId = router.query.category;

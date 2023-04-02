@@ -80,8 +80,8 @@ export default function ServiceProviderRegistration({
 }) {
   const router = useRouter();
 
-  const sslConfiguredAgent = https.Agent(httpOptions);
-  
+  const sslConfiguredAgent = new https.Agent(httpOptions);
+
   const [categoriesArr, setCategories] = useState([]);
 
   const addCategoryId = (categoryId) => {
