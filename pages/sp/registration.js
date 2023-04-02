@@ -82,12 +82,6 @@ export default function ServiceProviderRegistration({
 }) {
   const router = useRouter();
 
-  console.log("this is httpoptions" + httpOptions);
-
-  const sslConfiguredAgent = new https.Agent(httpOptions);
-
-  console.log("this is httpsAgent" + sslConfiguredAgent);
-
   const [categoriesArr, setCategories] = useState([]);
 
   const addCategoryId = (categoryId) => {
@@ -116,7 +110,9 @@ export default function ServiceProviderRegistration({
     data.categories = categories;
     console.log(JSON.stringify(data));
 
-    console.log("this is httpoptions" + httpOptions);
+    const httpOptions = JSON.stringify(httpOptions);
+
+    console.log("this is httpOptions" + httpOptions);
 
     const sslConfiguredAgent = new https.Agent(httpOptions);
 
