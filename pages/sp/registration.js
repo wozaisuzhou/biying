@@ -120,7 +120,7 @@ export default function ServiceProviderRegistration({
 
     const sslConfiguredAgent = new https.Agent(httpOptions);
 
-    console.log("this is httpsAgent" + sslConfiguredAgent);
+    console.log("this is httpsAgent" + sslConfiguredAgent.Agent);
 
     try {
       axios
