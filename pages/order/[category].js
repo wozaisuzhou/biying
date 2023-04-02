@@ -33,14 +33,13 @@ const serviceNameEnum = {
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
 
-  const certValue = await fs.readFileSync('../server/ssl/cert.pem');
-  const keyValue = await fs.readFileSync('../server/ssl/key.pem');
-
   const httpOptions = {
-    cert: certValue,
-    key: keyValue,
+    cert: fs.readFileSync('../server/ssl/cert.pem'),
+    key: fs.readFileSync('../server/ssl/key.pem'),
     rejectUnauthorized: false,
   }
+
+  const sslConfiguredAgent = new https.Agent(httpOptions);
   
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
@@ -121,6 +120,8 @@ export default function CategoryOrderForm({
 
     let dataDate = formatDate(data.startTime);
     data.startTime = dataDate;
+
+    const sslConfiguredAgent = new https.Agent(httpOptions);
 
     try {
       axios

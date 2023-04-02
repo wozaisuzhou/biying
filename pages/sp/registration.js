@@ -31,6 +31,8 @@ export async function getServerSideProps({ req, res }) {
     rejectUnauthorized: false,
   }
 
+  const sslConfiguredAgent = new https.Agent(httpOptions);
+
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
       fetch(process.env.allCategoriesApiUrl, {
