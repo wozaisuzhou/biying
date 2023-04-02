@@ -80,6 +80,8 @@ export default function ServiceProviderRegistration({
 }) {
   const router = useRouter();
 
+  const sslConfiguredAgent = https.Agent(httpOptions);
+  
   const [categoriesArr, setCategories] = useState([]);
 
   const addCategoryId = (categoryId) => {
@@ -107,9 +109,6 @@ export default function ServiceProviderRegistration({
     let categories = categoriesArr.join(",");
     data.categories = categories;
     console.log(JSON.stringify(data));
-
-    const sslConfiguredAgent = https.Agent(httpOptions);
-
 
     try {
       axios

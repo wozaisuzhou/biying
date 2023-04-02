@@ -32,7 +32,7 @@ const serviceNameEnum = {
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
-  
+
   const certValue = await fs.readFileSync('../server/ssl/cert.pem');
   const keyValue = await fs.readFileSync('../server/ssl/key.pem');
 
@@ -91,6 +91,8 @@ export default function CategoryOrderForm({
 }) {
   const [verificationCode, setVerificationCode] = useState("");
 
+  const sslConfiguredAgent = https.Agent(httpOptions);
+
   const router = useRouter();
   const categoryId = router.query.category;
   const subCategories = allCategories.filter(function (subCategory) {
@@ -116,8 +118,6 @@ export default function CategoryOrderForm({
   });
 
   const onSubmit = (data) => {
-
-    const sslConfiguredAgent = https.Agent(httpOptions);
 
     let dataDate = formatDate(data.startTime);
     data.startTime = dataDate;
