@@ -22,11 +22,14 @@ import https from 'https';
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
   
-  const sslConfiguredAgent = new https.Agent({
-    cert: fs.readFileSync('../server/ssl/cert.pem'),
-    key: fs.readFileSync('../server/ssl/key.pem'),
+  const certValue = await fs.readFileSync('../server/ssl/cert.pem');
+  const keyValue = await fs.readFileSync('../server/ssl/key.pem');
+
+  const httpOptions = {
+    cert: certValue,
+    key: keyValue,
     rejectUnauthorized: false,
-  });
+  }
 
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
@@ -56,37 +59,6 @@ export async function getServerSideProps({ req, res }) {
     allCitiesResponse.json(),
   ]);
 
-  const onSubmit = (data) => {
-    let categories = categoriesArr.join(",");
-    data.categories = categories;
-    console.log(JSON.stringify(data));
-
-    try {
-      axios
-        .post(process.env.insertServiceProviderUrl, data, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          httpsAgent: sslConfiguredAgent,
-        })
-        .then((response) => {
-          console.log("the response is " + response.status);
-          if (response.data.status === "success") {
-            router.push({
-              pathname: "/sp/registrationConfirmation",
-            });
-          }
-        })
-        .catch((err) => {
-          router.push({
-            pathname: "/sp/error",
-          });
-        });
-    } catch (err) {
-       console.log("this is error" + err);
-    }
-  };
-
   res.setHeader(
     "Cache-Control",
     "public, s-maxage=3600, stale-while-revalidate=86400"
@@ -97,14 +69,14 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, onSubmit} };
+  return { props: { allCategories, allProvinces, allCities, httpOptions} };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
-  onSubmit
+  httpOptions
 }) {
   const router = useRouter();
 
@@ -131,7 +103,39 @@ export default function ServiceProviderRegistration({
     resolver: yupResolver(registrationSchema),
   });
 
-  
+  const onSubmit = (data) => {
+    let categories = categoriesArr.join(",");
+    data.categories = categories;
+    console.log(JSON.stringify(data));
+
+    const sslConfiguredAgent = https.Agent(httpOptions);
+
+
+    try {
+      axios
+        .post(process.env.insertServiceProviderUrl, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          httpsAgent: sslConfiguredAgent,
+        })
+        .then((response) => {
+          console.log("the response is " + response.status);
+          if (response.data.status === "success") {
+            router.push({
+              pathname: "/sp/registrationConfirmation",
+            });
+          }
+        })
+        .catch((err) => {
+          router.push({
+            pathname: "/sp/error",
+          });
+        });
+    } catch (err) {
+       reject(err);
+    }
+  };
 
   return (
     <>

@@ -32,15 +32,15 @@ const serviceNameEnum = {
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
+  
   const certValue = await fs.readFileSync('../server/ssl/cert.pem');
   const keyValue = await fs.readFileSync('../server/ssl/key.pem');
-  
-  const sslConfiguredAgent = new https.Agent({
-    cert: fs.readFileSync('../server/ssl/cert.pem'),
-    key: fs.readFileSync('../server/ssl/key.pem'),
-    rejectUnauthorized: false,
-  });
 
+  const httpOptions = {
+    cert: certValue,
+    key: keyValue,
+    rejectUnauthorized: false,
+  }
   
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
     await Promise.all([
@@ -80,13 +80,14 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities} };
+  return { props: { allCategories, allProvinces, allCities, httpOptions} };
 }
 
 export default function CategoryOrderForm({
   allCategories,
   allProvinces,
-  allCities
+  allCities,
+  httpOptions
 }) {
   const [verificationCode, setVerificationCode] = useState("");
 
@@ -115,6 +116,9 @@ export default function CategoryOrderForm({
   });
 
   const onSubmit = (data) => {
+
+    const sslConfiguredAgent = https.Agent(httpOptions);
+
     let dataDate = formatDate(data.startTime);
     data.startTime = dataDate;
 
@@ -124,7 +128,7 @@ export default function CategoryOrderForm({
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: deserializedSslConfiguredAgent,
+          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {
