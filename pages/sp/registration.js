@@ -22,12 +22,9 @@ import https from 'https';
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
   
-  const certValue = await fs.readFileSync('../server/ssl/cert.pem');
-  const keyValue = await fs.readFileSync('../server/ssl/key.pem');
-
   const httpOptions = {
-    cert: certValue,
-    key: keyValue,
+    cert: fs.readFileSync('../server/ssl/cert.pem'),
+    key: fs.readFileSync('../server/ssl/key.pem'),
     rejectUnauthorized: false,
   }
 
@@ -71,15 +68,13 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, httpOptions, agent: sslConfiguredAgent} };
+  return { props: { allCategories, allProvinces, allCities} };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
-  httpOptions,
-  agent
 }) {
   const router = useRouter();
 
@@ -111,8 +106,6 @@ export default function ServiceProviderRegistration({
     data.categories = categories;
     console.log(JSON.stringify(data));
 
-    console.log("this is agent object" + agent.JSON);
-
     try {
       axios
         .post(process.env.insertServiceProviderUrl, data, {
@@ -121,7 +114,6 @@ export default function ServiceProviderRegistration({
           }
         })
         .then((response) => {
-          console.log("the response is " + response.status);
           if (response.data.status === "success") {
             router.push({
               pathname: "/sp/registrationConfirmation",

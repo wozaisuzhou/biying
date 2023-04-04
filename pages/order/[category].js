@@ -79,18 +79,15 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, httpOptions} };
+  return { props: { allCategories, allProvinces, allCities} };
 }
 
 export default function CategoryOrderForm({
   allCategories,
   allProvinces,
-  allCities,
-  httpOptions
+  allCities
 }) {
   const [verificationCode, setVerificationCode] = useState("");
-
-  console.log("this is httpoptions" + httpOptions);
 
   const router = useRouter();
   const categoryId = router.query.category;
@@ -120,8 +117,6 @@ export default function CategoryOrderForm({
 
     let dataDate = formatDate(data.startTime);
     data.startTime = dataDate;
-
-    const sslConfiguredAgent = new https.Agent(httpOptions);
 
     try {
       axios
