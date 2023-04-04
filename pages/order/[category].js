@@ -128,8 +128,7 @@ export default function CategoryOrderForm({
         .post(process.env.insertOrderApiUrl, data, {
           headers: {
             "Content-Type": "application/json",
-          },
-          httpsAgent: sslConfiguredAgent,
+          }
         })
         .then((response) => {
           if(response.data.status === 'success') {
