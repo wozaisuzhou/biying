@@ -38,7 +38,7 @@ export async function getServerSideProps({ req, res }) {
     key: fs.readFileSync('../server/ssl/key.pem'),
     rejectUnauthorized: false,
   }
-
+  
   const sslConfiguredAgent = new https.Agent(httpOptions);
   
   const [allCategoriesResponse, allProvinceResponse, allCitiesResponse] =
@@ -79,15 +79,18 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities} };
+  return { props: { allCategories, allProvinces, allCities, httpOptions} };
 }
 
 export default function CategoryOrderForm({
   allCategories,
   allProvinces,
-  allCities
+  allCities,
+  httpOptions
 }) {
   const [verificationCode, setVerificationCode] = useState("");
+
+  console.log("this is httpoptions" + httpOptions);
 
   const router = useRouter();
   const categoryId = router.query.category;
@@ -123,7 +126,8 @@ export default function CategoryOrderForm({
         .post(process.env.insertOrderApiUrl, data, {
           headers: {
             "Content-Type": "application/json",
-          }
+          },
+          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {

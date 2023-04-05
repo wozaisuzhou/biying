@@ -14,17 +14,21 @@ import FooterPage from "../components/Footer";
 import { useForm, Controller, register } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registrationSchema } from "../../components/validation/registrationSchema";
-import axios from "axios";
 import fs from 'fs';
 import https from 'https';
+import makeAxiosCall from '../../libs/axios';
+import axios from "axios";
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
   
+  const certValue = await fs.readFileSync('../server/ssl/cert.pem');
+  const keyValue = await fs.readFileSync('../server/ssl/key.pem');
+
   const httpOptions = {
-    cert: fs.readFileSync('../server/ssl/cert.pem'),
-    key: fs.readFileSync('../server/ssl/key.pem'),
+    cert: certValue,
+    key: keyValue,
     rejectUnauthorized: false,
   }
 
@@ -68,13 +72,14 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities} };
+  return { props: { allCategories, allProvinces, allCities, httpOptions} };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
+  httpOptions
 }) {
   const router = useRouter();
 
@@ -105,15 +110,11 @@ export default function ServiceProviderRegistration({
     let categories = categoriesArr.join(",");
     data.categories = categories;
     console.log(JSON.stringify(data));
-
     try {
-      axios
-        .post(process.env.insertServiceProviderUrl, data, {
-          headers: {
-            "Content-Type": "application/json",
-          }
-        })
+      axios.post(process.env.insertServiceProviderUrl, data, {
+          })
         .then((response) => {
+          console.log("the response is " + response.status);
           if (response.data.status === "success") {
             router.push({
               pathname: "/sp/registrationConfirmation",
