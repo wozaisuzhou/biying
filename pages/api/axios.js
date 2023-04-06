@@ -17,7 +17,7 @@ export default async function handler(req, res) {
       const { data } = req.body;
 
       // Make a request to an external API endpoint using axios
-      axios.post('https://api.example.com/myEndpoint', { data }, {
+      axios.post("https://localhost:3001/insertProvider", { data }, {
         headers: {
           "Content-Type": "application/json",
         },
