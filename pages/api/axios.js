@@ -21,7 +21,10 @@ export default async function handler(req, res) {
 
       try {
         const response = await axios.post(process.env.insertServiceProviderUrl, body, {
-          httpsAgent
+          headers: {
+            "Content-Type": "application/json",
+          },
+          httpsAgent: httpsAgent
         });
         
         console.log("this is response" + response);
