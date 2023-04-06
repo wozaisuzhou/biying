@@ -1,6 +1,7 @@
 // pages/api/my-page.js
 import fs from 'fs';
 import https from 'https';
+import axios from 'axios';
 
 const httpOptions = {
     cert: fs.readFileSync('../server/ssl/cert.pem'),
