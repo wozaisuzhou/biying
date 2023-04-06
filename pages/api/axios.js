@@ -14,7 +14,7 @@ const httpsAgent = new https.Agent(httpOptions);
 export default async function handler(req, res) {
 
     if (req.method === 'POST') {
-      const { data } = req.body;
+      console.log("this is request body" + req.body);
 
       // Make a request to an external API endpoint using axios
       axios.post("https://localhost:3001/insertProvider", { data }, {
