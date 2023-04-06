@@ -111,7 +111,7 @@ export default function ServiceProviderRegistration({
     console.log(JSON.stringify(data));
     try {
       axios
-        .post("/sp/axios", data, {
+        .post("/api/axios", data, {
           headers: {
             "Content-Type": "application/json",
           }
