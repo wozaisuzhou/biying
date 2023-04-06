@@ -15,24 +15,25 @@ export default async function handler(req, res) {
     console.log("this is request method" + req);
 
     if (req.method === 'POST') {
-      const { body } = req;
+      res.status(200).json({ success: true });
+      // const { body } = req;
        
-      console.log("this is request body" + { body });
+      // console.log("this is request body" + { body });
 
-      try {
-        const response = await axios.post(process.env.insertServiceProviderUrl, body, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          httpsAgent: httpsAgent
-        });
+      // try {
+      //   const response = await axios.post(process.env.insertServiceProviderUrl, body, {
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     httpsAgent: httpsAgent
+      //   });
         
-        console.log("this is response" + response);
+      //   console.log("this is response" + response);
 
-        res.status(response.status).json(response.data);
-      } catch (error) {
-        res.status(error.response.status).json(error.response.data);
-      }
+      //   res.status(response.status).json(response.data);
+      // } catch (error) {
+      //   res.status(error.response.status).json(error.response.data);
+      // }
     } else {
       res.status(405).json({ message: 'Method not allowed' });
     }
