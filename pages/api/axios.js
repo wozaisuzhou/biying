@@ -13,12 +13,16 @@ const httpsAgent = new https.Agent(httpOptions);
 export default async function handler(req, res) {
     if (req.method === 'POST') {
       const { body } = req;
-  
+       
+      console.log("this is request body" + { body });
+
       try {
         const response = await axios.post(process.env.insertServiceProviderUrl, body, {
           httpsAgent
         });
-  
+        
+        console.log("this is response" + response);
+
         res.status(response.status).json(response.data);
       } catch (error) {
         res.status(error.response.status).json(error.response.data);
