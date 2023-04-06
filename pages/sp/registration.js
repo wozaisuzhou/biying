@@ -109,9 +109,6 @@ export default function ServiceProviderRegistration({
     let categories = categoriesArr.join(",");
     data.categories = categories;
     console.log(JSON.stringify(data));
-
-    console.log("this is httpsAgent" + sslConfiguredAgent.options);
-
     try {
       axios
         .post(process.env.insertServiceProviderUrl, data, {
