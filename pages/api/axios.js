@@ -12,10 +12,23 @@ const httpsAgent = new https.Agent(httpOptions);
 
 export default async function handler(req, res) {
 
-    console.log("this is request method" + req);
-
     if (req.method === 'POST') {
-      res.status(200).json({ success: true });
+      const { data } = req.body;
+
+      // Make a request to an external API endpoint using axios
+      axios.post('https://api.example.com/myEndpoint', { data }, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        httpsAgent: httpsAgent 
+      })
+        .then(response => {
+          res.status(200).json(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        });
       // const { body } = req;
        
       // console.log("this is request body" + { body });
