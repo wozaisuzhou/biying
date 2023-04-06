@@ -11,6 +11,9 @@ const httpOptions = {
 const httpsAgent = new https.Agent(httpOptions);
 
 export default async function handler(req, res) {
+
+    console.log("this is request method" + req);
+
     if (req.method === 'POST') {
       const { body } = req;
        
