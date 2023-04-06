@@ -119,8 +119,7 @@ export default function ServiceProviderRegistration({
         .post(process.env.insertServiceProviderUrl, data, {
           headers: {
             "Content-Type": "application/json",
-          },
-          httpsAgent: sslConfiguredAgent,
+          }
         })
         .then((response) => {
           console.log("the response is " + response.status);
