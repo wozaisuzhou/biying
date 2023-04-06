@@ -110,8 +110,6 @@ export default function ServiceProviderRegistration({
     data.categories = categories;
     console.log(JSON.stringify(data));
 
-    const sslConfiguredAgent = new https.Agent(httpOptions);
-
     console.log("this is httpsAgent" + sslConfiguredAgent.options);
 
     try {
