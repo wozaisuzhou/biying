@@ -14,10 +14,9 @@ import FooterPage from "../components/Footer";
 import { useForm, Controller, register } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registrationSchema } from "../../components/validation/registrationSchema";
+import axios from "axios";
 import fs from 'fs';
 import https from 'https';
-import makeAxiosCall from '../../libs/axios';
-import axios from "axios";
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
@@ -110,9 +109,19 @@ export default function ServiceProviderRegistration({
     let categories = categoriesArr.join(",");
     data.categories = categories;
     console.log(JSON.stringify(data));
+
+    const sslConfiguredAgent = new https.Agent(httpOptions);
+
+    console.log("this is httpsAgent" + sslConfiguredAgent.options);
+
     try {
-      axios.post(process.env.insertServiceProviderUrl, data, {
-          })
+      axios
+        .post(process.env.insertServiceProviderUrl, data, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          httpsAgent: sslConfiguredAgent,
+        })
         .then((response) => {
           console.log("the response is " + response.status);
           if (response.data.status === "success") {
