@@ -111,7 +111,7 @@ export default function ServiceProviderRegistration({
     console.log(JSON.stringify(data));
     try {
       axios
-        .post(process.env.insertServiceProviderUrl, data, {
+        .post("/sp/axios", data, {
           headers: {
             "Content-Type": "application/json",
           }
