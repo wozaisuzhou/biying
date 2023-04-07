@@ -90,8 +90,6 @@ export default function CategoryOrderForm({
 }) {
   const [verificationCode, setVerificationCode] = useState("");
 
-  console.log("this is httpoptions" + httpOptions);
-
   const router = useRouter();
   const categoryId = router.query.category;
   const subCategories = allCategories.filter(function (subCategory) {
@@ -123,11 +121,10 @@ export default function CategoryOrderForm({
 
     try {
       axios
-        .post(process.env.insertOrderApiUrl, data, {
+        .post("/api/order", data, {
           headers: {
             "Content-Type": "application/json",
           },
-          httpsAgent: sslConfiguredAgent,
         })
         .then((response) => {
           if(response.data.status === 'success') {

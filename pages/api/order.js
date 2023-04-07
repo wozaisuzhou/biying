@@ -14,12 +14,10 @@ const httpsAgent = new https.Agent(httpOptions);
 export default async function handler(req, res) {
 
     if (req.method === 'POST') {
-      console.log("this is request body" + req);
-
       const data = req.body;
 
       // Make a request to an external API endpoint using axios
-      axios.post("https://localhost:3001/insertProvider", data, {
+      axios.post(process.env.insertOrderApiUrl, data, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -32,24 +30,6 @@ export default async function handler(req, res) {
           console.error(error);
           res.status(500).json({ error: 'Internal Server Error' });
         });
-      // const { body } = req;
-       
-      // console.log("this is request body" + { body });
-
-      // try {
-      //   const response = await axios.post(process.env.insertServiceProviderUrl, body, {
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     httpsAgent: httpsAgent
-      //   });
-        
-      //   console.log("this is response" + response);
-
-      //   res.status(response.status).json(response.data);
-      // } catch (error) {
-      //   res.status(error.response.status).json(error.response.data);
-      // }
     } else {
       res.status(405).json({ message: 'Method not allowed' });
     }

@@ -108,16 +108,14 @@ export default function ServiceProviderRegistration({
   const onSubmit = (data) => {
     let categories = categoriesArr.join(",");
     data.categories = categories;
-    console.log(JSON.stringify(data));
     try {
       axios
-        .post("/api/axios", data, {
+        .post("/api/sp", data, {
           headers: {
             "Content-Type": "application/json",
           }
         })
         .then((response) => {
-          console.log("the response is " + response.status);
           if (response.data.status === "success") {
             router.push({
               pathname: "/sp/registrationConfirmation",
