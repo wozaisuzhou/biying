@@ -9,7 +9,21 @@ import OrderStatusDetails from "../components/OrderStatusDetails";
 
 export async function getServerSideProps(context) {
   const { orderId } = context.query;
-  const res = await fetch(process.env.getOrderDetailsApiUrl + orderId);
+   
+  const httpOptions = {
+    cert: fs.readFileSync('../server/ssl/cert.pem'),
+    key: fs.readFileSync('../server/ssl/key.pem'),
+    rejectUnauthorized: false,
+  }
+  
+  const sslConfiguredAgent = new https.Agent(httpOptions);
+
+  const res = await fetch((process.env.getOrderDetailsApiUrl + orderId), {
+    headers: {
+      Accept: "application/json",
+    },
+    agent: sslConfiguredAgent,
+  });
 
   const orderDetailsData = await res.json();
   let orderDetails;
