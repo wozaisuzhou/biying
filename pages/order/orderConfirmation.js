@@ -1,6 +1,8 @@
 import { Steps, Divider, Link, Button } from "react-daisyui";
 import FooterPage from "../components/Footer";
 import OrderSuccess from "../components/OrderSuccess";
+import fs from 'fs';
+import https from 'https';
 
 export async function getServerSideProps(context) {
   const { orderId } = context.query;

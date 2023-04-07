@@ -6,6 +6,8 @@ import {
 } from "react-daisyui";
 import FooterPage from "../components/Footer";
 import OrderStatusDetails from "../components/OrderStatusDetails";
+import fs from 'fs';
+import https from 'https';
 
 export async function getServerSideProps(context) {
   const { orderId } = context.query;
