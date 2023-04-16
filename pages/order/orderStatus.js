@@ -47,7 +47,6 @@ export default function OrderStatus({ orderDetails }) {
             <Steps.Step color="primary">下订单</Steps.Step>
             <Steps.Step color="primary">订单确认</Steps.Step>
             <Steps.Step color="primary">订单详情</Steps.Step>
-            <Steps.Step>客户反馈</Steps.Step>
           </Steps>
         </main>
         <Divider className="pt-10 pd-10">订单详情</Divider>
@@ -59,13 +58,6 @@ export default function OrderStatus({ orderDetails }) {
             description={orderDetails.description}
             budget={orderDetails.budget}
           />
-        </div>
-        <div className="pt-5 flex items-center justify-center">
-        <Link href={`/order/orderCompletion?orderId=${orderDetails.orderId}`}>
-          <Button variant="contained" color="success">
-             走，去完成订单
-          </Button>
-        </Link>
         </div>
         <div className="absolute inset-x-0 bottom-0">
           <FooterPage />

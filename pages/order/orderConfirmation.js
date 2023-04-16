@@ -42,7 +42,6 @@ export default function OrderConfirmation({ orderDetails }) {
             <Steps.Step color="primary">下订单</Steps.Step>
             <Steps.Step color="primary">订单确认</Steps.Step>
             <Steps.Step>订单详情</Steps.Step>
-            <Steps.Step>客户反馈</Steps.Step>
           </Steps>
         </main>
         {orderDetails ? (
