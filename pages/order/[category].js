@@ -412,17 +412,6 @@ export default function CategoryOrderForm({
                 />
                 <p className="pt-2 text-red-400">{errors.cellphone?.message}</p>
               </div>
-              <div className="pt-2 pl-2 form-control w-full max-w-xs">
-                <label className="label">
-                  <span className="label-text">验证码:</span>
-                </label>
-                <Input
-                  id="verificationCode"
-                  type="text"
-                  placeholder="Type here"
-                  className="input input-bordered w-full max-w-xs"
-                />
-              </div>
               <div className="pt-5 pl-10 pb-10 form-control w-full max-w-xs">
                 <Button form="orderForm" type="submit" color="primary">
                   确定下单
