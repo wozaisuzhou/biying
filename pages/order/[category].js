@@ -149,7 +149,6 @@ export default function CategoryOrderForm({
               <Steps.Step color="primary">下订单</Steps.Step>
               <Steps.Step>订单确认</Steps.Step>
               <Steps.Step>订单详情</Steps.Step>
-              <Steps.Step>客户反馈</Steps.Step>
             </Steps>
           </main>
           <Divider className="pt-10 pd-10">
