@@ -60,7 +60,7 @@ export default function OrderStatus({ orderDetails }) {
           />
         </div>
         <div className="pt-10">
-        <p class="text-red-600">请妥善保存订单信息</p>
+        <p class="text-red-600 text-center">请妥善保存订单信息</p>
         </div>
         <div className="absolute inset-x-0 bottom-0">
           <FooterPage />
