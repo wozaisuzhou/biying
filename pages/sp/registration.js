@@ -479,7 +479,6 @@ export default function ServiceProviderRegistration({
                           <Checkbox
                             name="soleTrader"
                             color="primary"
-                            value={subCategory.id}
                             onChange={(e) =>
                                     field.onChange(e.target.checked)
                             }
@@ -506,7 +505,6 @@ export default function ServiceProviderRegistration({
                           <Checkbox
                             name="privacy"
                             color="primary"
-                            value={subCategory.id}
                             onChange={(e) =>
                                 field.onChange(e.target.checked)
                             }
