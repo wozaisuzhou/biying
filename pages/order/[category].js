@@ -6,6 +6,7 @@ import {
   Textarea,
   Radio,
   Button,
+  Checkbox,
 } from "react-daisyui";
 import { useRouter } from "next/router";
 import FooterPage from "../components/Footer";
