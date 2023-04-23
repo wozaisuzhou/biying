@@ -471,8 +471,8 @@ export default function ServiceProviderRegistration({
               </p>
             </div>
             <div>
-              <label class="cursor-pointer label">
-              <Controller
+             <label class="cursor-pointer label">
+                <Controller
                         name="soleTrader"
                         control={control}
                         render={({ field }) => (
@@ -506,7 +506,7 @@ export default function ServiceProviderRegistration({
                           />
                         )}
                       />
-                <span class="label-text font-bold">I agree to the <a href="../../GlobalTerms.html">Terms and Conditions</a> and have reviewed the <a href="../../GlobalPrivacy.html">Privacy Policy.</a></span>
+                <span class="pl-2 label-text font-bold">I agree to the <a href="../../GlobalTerms.html"><span class="text-blue-600">Terms and Conditions</span></a> and have reviewed the <a href="../../GlobalPrivacy.html"><span class="text-blue-600">Privacy Policy.</span></a></span>
               </label>
               <p className="pl-2 pt-2 text-red-400">
                 {errors.privacy?.message}
