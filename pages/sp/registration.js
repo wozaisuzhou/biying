@@ -485,12 +485,7 @@ export default function ServiceProviderRegistration({
                           />
                         )}
                       />
-                <input
-                  type="checkbox"
-                  name="soleTrader"
-                  class="checkbox checkbox-accent"
-                />
-                <span class="label-text">I acknowledge I am a sole trader.</span>
+                <span class="label-text font-bold">I acknowledge I am a sole trader.</span>
               </label>
               <p className="pl-2 pt-2 text-red-400">
                 {errors.soleTrader?.message}
@@ -511,12 +506,7 @@ export default function ServiceProviderRegistration({
                           />
                         )}
                       />
-                <input
-                  type="checkbox"
-                  name="privacy"
-                  class="checkbox checkbox-accent"
-                />
-                <span class="label-text">I agree to the <a href="../../GlobalTerms.html">Terms and Conditions</a> and have reviewed the <a href="../../GlobalPrivacy.html">Privacy Policy.</a></span>
+                <span class="label-text font-bold">I agree to the <a href="../../GlobalTerms.html">Terms and Conditions</a> and have reviewed the <a href="../../GlobalPrivacy.html">Privacy Policy.</a></span>
               </label>
               <p className="pl-2 pt-2 text-red-400">
                 {errors.privacy?.message}
