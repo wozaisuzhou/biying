@@ -471,7 +471,7 @@ export default function ServiceProviderRegistration({
               </p>
             </div>
             <div>
-             <label class="cursor-pointer label">
+             <label>
                 <Controller
                         name="soleTrader"
                         control={control}
@@ -480,7 +480,7 @@ export default function ServiceProviderRegistration({
                             name="soleTrader"
                             color="primary"
                             onChange={(e) =>
-                                    field.onChange(e.target.checked)
+                              e.target.checked? field.onChange(true):field.onChange(false)                            
                             }
                           />
                         )}
@@ -501,7 +501,7 @@ export default function ServiceProviderRegistration({
                             name="privacy"
                             color="primary"
                             onChange={(e) =>
-                                field.onChange(e.target.checked)
+                              e.target.checked? field.onChange(true):field.onChange(false) 
                             }
                           />
                         )}
