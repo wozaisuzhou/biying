@@ -15,21 +15,21 @@ import { useForm, Controller, register } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registrationSchema } from "../../components/validation/registrationSchema";
 import axios from "axios";
-import fs from 'fs';
-import https from 'https';
+import fs from "fs";
+import https from "https";
 
 // This gets called on every request
 export async function getServerSideProps({ req, res }) {
   // Fetch data from external API
-  
-  const certValue = await fs.readFileSync('../server/ssl/cert.pem');
-  const keyValue = await fs.readFileSync('../server/ssl/key.pem');
+
+  const certValue = await fs.readFileSync("../server/ssl/cert.pem");
+  const keyValue = await fs.readFileSync("../server/ssl/key.pem");
 
   const httpOptions = {
     cert: certValue,
     key: keyValue,
     rejectUnauthorized: false,
-  }
+  };
 
   const sslConfiguredAgent = new https.Agent(httpOptions);
 
@@ -71,14 +71,14 @@ export async function getServerSideProps({ req, res }) {
   const allCities = allCitiesData.data;
 
   // Pass data to the page via props
-  return { props: { allCategories, allProvinces, allCities, httpOptions} };
+  return { props: { allCategories, allProvinces, allCities, httpOptions } };
 }
 
 export default function ServiceProviderRegistration({
   allCategories,
   allProvinces,
   allCities,
-  httpOptions
+  httpOptions,
 }) {
   const router = useRouter();
 
@@ -113,7 +113,7 @@ export default function ServiceProviderRegistration({
         .post("/api/sp", data, {
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         })
         .then((response) => {
           if (response.data.status === "success") {
@@ -128,7 +128,7 @@ export default function ServiceProviderRegistration({
           });
         });
     } catch (err) {
-       reject(err);
+      reject(err);
     }
   };
 
@@ -139,16 +139,17 @@ export default function ServiceProviderRegistration({
           <title>必应 - 生活 App</title>
           <meta
             name="description"
-             http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"
+            http-equiv="Content-Security-Policy"
+            content="upgrade-insecure-requests"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div>
           <div className="bg-indigo-100">
-           <div className="h-100 max-w-100 rounded-100">
+            <div className="h-100 max-w-100 rounded-100">
               <img src="../beingindex.jpeg" />
-           </div>
-          </div> 
+            </div>
+          </div>
           <div className="flex w-full items-center justify-center pt-5">
             <h2 className={styles.subTitle}>Service provider 申请表</h2>
           </div>
@@ -451,12 +452,13 @@ export default function ServiceProviderRegistration({
                             name="categories"
                             color="primary"
                             value={subCategory.id}
-                            onChange={(e) => 
-                                e.target.checked? 
-                                  field.onChange(addCategoryId(e.target.value)) :
-                                  field.onChange(removeCategoryId(e.target.value))
+                            onChange={(e) =>
+                              e.target.checked
+                                ? field.onChange(addCategoryId(e.target.value))
+                                : field.onChange(
+                                    removeCategoryId(e.target.value)
+                                  )
                             }
-                     
                           />
                         )}
                       />
@@ -466,6 +468,60 @@ export default function ServiceProviderRegistration({
               </div>
               <p className="pl-2 pt-2 text-red-400">
                 {errors.categories?.message}
+              </p>
+            </div>
+            <div>
+              <label class="cursor-pointer label">
+              <Controller
+                        name="soleTrader"
+                        control={control}
+                        render={({ field }) => (
+                          <Checkbox
+                            name="soleTrader"
+                            color="primary"
+                            value={subCategory.id}
+                            onChange={(e) =>
+                                    field.onChange(e.target.checked)
+                            }
+                          />
+                        )}
+                      />
+                <input
+                  type="checkbox"
+                  name="soleTrader"
+                  class="checkbox checkbox-accent"
+                />
+                <span class="label-text">I acknowledge I am a sole trader.</span>
+              </label>
+              <p className="pl-2 pt-2 text-red-400">
+                {errors.soleTrader?.message}
+              </p>
+            </div>
+            <div>
+              <label class="cursor-pointer label">
+              <Controller
+                        name="privacy"
+                        control={control}
+                        render={({ field }) => (
+                          <Checkbox
+                            name="privacy"
+                            color="primary"
+                            value={subCategory.id}
+                            onChange={(e) =>
+                                field.onChange(e.target.checked)
+                            }
+                          />
+                        )}
+                      />
+                <input
+                  type="checkbox"
+                  name="privacy"
+                  class="checkbox checkbox-accent"
+                />
+                <span class="label-text">I agree to the <a href="../../GlobalTerms.html">Terms and Conditions</a> and have reviewed the <a href="../../GlobalPrivacy.html">Privacy Policy.</a></span>
+              </label>
+              <p className="pl-2 pt-2 text-red-400">
+                {errors.privacy?.message}
               </p>
             </div>
             <div className="pt-5 pl-10 pb-10 form-control w-full max-w-xs">
