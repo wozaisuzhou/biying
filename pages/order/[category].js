@@ -412,6 +412,27 @@ export default function CategoryOrderForm({
                 />
                 <p className="pt-2 text-red-400">{errors.cellphone?.message}</p>
               </div>
+              <div>
+              <label class="cursor-pointer label">
+              <Controller
+                        name="privacy"
+                        control={control}
+                        render={({ field }) => (
+                          <Checkbox
+                            name="privacy"
+                            color="primary"
+                            onChange={(e) =>
+                              e.target.checked? field.onChange(true):field.onChange(false) 
+                            }
+                          />
+                        )}
+                      />
+                <span class="pl-2 label-text font-bold">I agree to the <a href="../../GlobalTerms.html"><span class="text-blue-600">Terms and Conditions</span></a> and have reviewed the <a href="../../GlobalPrivacy.html"><span class="text-blue-600">Privacy Policy.</span></a></span>
+              </label>
+              <p className="pl-2 pt-2 text-red-400">
+                {errors.privacy?.message}
+              </p>
+            </div>
               <div className="pt-5 pl-10 pb-10 form-control w-full max-w-xs">
                 <Button form="orderForm" type="submit" color="primary">
                   确定下单

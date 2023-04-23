@@ -15,5 +15,5 @@ export const registrationSchema = Yup.object().shape({
   selfIntro: Yup.string().trim().required("请填写您的自我介绍"),
   categories: Yup.array().of(Yup.boolean().oneOf([true])).min(1, "请选择您的服务类别"),
   soleTrader: Yup.boolean().oneOf([true], "请确定您是个体经营者").required("请确定您是个体经营者"),
-  privacy: Yup.boolean().oneOf([true], "请确定您是个体经营者").required("请确定您同意遵守条款和条件，并已查阅隐私政策"),
+  privacy: Yup.boolean().oneOf([true], "请确定您同意遵守条款和条件，并已查阅隐私政策").required("请确定您同意遵守条款和条件，并已查阅隐私政策"),
 })
