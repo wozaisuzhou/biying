@@ -485,7 +485,7 @@ export default function ServiceProviderRegistration({
                           />
                         )}
                       />
-                <span class="label-text font-bold">I acknowledge I am a sole trader.</span>
+                <span class="pl-2 text-center label-text font-bold">I acknowledge I am a sole trader.</span>
               </label>
               <p className="pl-2 pt-2 text-red-400">
                 {errors.soleTrader?.message}
