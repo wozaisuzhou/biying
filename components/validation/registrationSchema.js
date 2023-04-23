@@ -13,7 +13,7 @@ export const registrationSchema = Yup.object().shape({
   cityId: Yup.string().trim().required("请填写您所在的城市"),
   address: Yup.string().trim().required("请填写您的地址"),
   selfIntro: Yup.string().trim().required("请填写您的自我介绍"),
-  categories: Yup.boolean().oneOf([true], "请选择您的服务类别").required("请选择您的服务类别"),
+  categories: Yup.array().min(1, "请选择您的服务类别").required("请选择您的服务类别"),
   soleTrader: Yup.boolean().oneOf([true], "请确定您是个体经营者").required("请确定您是个体经营者"),
   privacy: Yup.boolean().oneOf([true], "请确定您是个体经营者").required("请确定您同意遵守条款和条件，并已查阅隐私政策"),
 })
