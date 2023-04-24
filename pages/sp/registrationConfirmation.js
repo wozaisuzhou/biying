@@ -21,8 +21,10 @@ export default function ServiceProviderRegistrationConfirmation() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div>
-          <div className="flex w-full items-center justify-center pt-20">
-            <h1 className={styles.title}>必应 - 生活</h1>
+          <div className="bg-indigo-100">
+            <div className="h-100 max-w-100 rounded-100">
+              <img src="../beingindex.jpeg" />
+            </div>
           </div>
           <Divider></Divider>
           <div className="flex w-full items-center justify-center pt-5">
