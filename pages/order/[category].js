@@ -106,7 +106,7 @@ export default function CategoryOrderForm({
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, errors },
   } = useForm({
     defaultValues: {
       startTime: new Date(),
@@ -436,8 +436,8 @@ export default function CategoryOrderForm({
               </p>
             </div>
               <div className="pt-5 pl-10 pb-10 form-control w-full max-w-xs">
-                <Button form="orderForm" type="submit" color="primary">
-                  确定下单
+                <Button form="orderForm" type="submit" color="primary" disabled={isSubmitting}>
+                   {isSubmitting ? 'Submitting...' : '确定下单'}
                 </Button>
               </div>
             </Form>
