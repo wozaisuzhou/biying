@@ -5,7 +5,11 @@ const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2
 export const orderSchema = Yup.object().shape({
   categoryId: Yup.string().trim().required('请选择您所需的服务！'),
   description: Yup.string().trim().required('请填写您的具体需求！'),
-  budget: Yup.number().positive().required('请填写您的预算金额！'),
+  budget: Yup.number()
+                     .typeError('请填写一个有效的数字金额！')
+                     .positive('请填写一个正数金额！')
+                     .integer('请填写一个证书金额！')
+                     .required('请填写一个服务金额！'),
   name: Yup.string().trim().required("请填写您的姓名"),
   provinceId: Yup.string().trim().required("请填写您所在的省份"),
   cityId: Yup.string().trim().required("请填写您所在的城市"),
