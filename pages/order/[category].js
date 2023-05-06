@@ -359,6 +359,7 @@ export default function CategoryOrderForm({
                     />
                   )}
                 /> &nbsp;&nbsp; 加币
+                 <p className="pt-2 text-red-400">{errors.budget?.message}</p>
               </div>
               <div className="pt-2 pl-2 form-control w-full max-w-xs">
                 <label className="label">
