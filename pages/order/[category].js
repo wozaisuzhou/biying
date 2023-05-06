@@ -89,6 +89,7 @@ export default function CategoryOrderForm({
   httpOptions
 }) {
   const [verificationCode, setVerificationCode] = useState("");
+  const [isSubmittingForm, setIsSubmittingForm] = useState(false);
 
   const router = useRouter();
   const categoryId = router.query.category;
@@ -118,6 +119,7 @@ export default function CategoryOrderForm({
 
     let dataDate = formatDate(data.startTime);
     data.startTime = dataDate;
+    setIsSubmittingForm(true);
 
     try {
       axios
@@ -138,6 +140,8 @@ export default function CategoryOrderForm({
         });
     } catch (err) {
         reject(err);
+    } finally {
+      setIsSubmittingForm(false);
     }
   };
 
@@ -436,8 +440,8 @@ export default function CategoryOrderForm({
               </p>
             </div>
               <div className="pt-5 pl-10 pb-10 form-control w-full max-w-xs">
-                <Button form="orderForm" type="submit" color="primary" disabled={isSubmitting}>
-                   {isSubmitting ? 'Submitting...' : '确定下单'}
+                <Button form="orderForm" type="submit" color="primary" disabled={isSubmittingForm || Object.keys(errors).length > 0}>
+                    {isSubmittingForm ? "Submitting..." : "确定下单"}
                 </Button>
               </div>
             </Form>
