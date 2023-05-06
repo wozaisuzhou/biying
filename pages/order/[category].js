@@ -135,13 +135,12 @@ export default function CategoryOrderForm({
               query: { orderId: response.data.result.orderId },
             });
           }
+            setIsSubmittingForm(false);
         })
         .catch((err) => {
         });
     } catch (err) {
         reject(err);
-    } finally {
-      setIsSubmittingForm(false);
     }
   };
 
@@ -441,7 +440,7 @@ export default function CategoryOrderForm({
             </div>
               <div className="pt-5 pl-10 pb-10 form-control w-full max-w-xs">
                 <Button form="orderForm" type="submit" color="primary" disabled={isSubmittingForm || Object.keys(errors).length > 0}>
-                    {isSubmittingForm ? "Submitting..." : "确定下单"}
+                    {isSubmittingForm ? "下单中..." : "确定下单"}
                 </Button>
               </div>
             </Form>
