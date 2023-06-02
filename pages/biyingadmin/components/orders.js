@@ -5,6 +5,11 @@ import { Typography } from 'antd';
 const { Text } = Typography;
 
 const Orders = ({ orders, provinces, cities }) => {
+
+  if (!orders) {
+    return null; // or render a loading state or placeholder
+  }
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);

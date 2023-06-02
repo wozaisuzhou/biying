@@ -77,11 +77,8 @@ const Dashboard = ({ ordersData, provincesData, citiesData }) => {
     case 'sps':
       contentComponent = <UsersContent />;
       break;
-    case 'settings':
-      contentComponent = <SettingsContent />;
-      break;
     default:
-      break;
+     break;
   }
 
   return (
@@ -106,24 +103,10 @@ const Dashboard = ({ ordersData, provincesData, citiesData }) => {
   );
 };
 
-const DashboardContent = () => (
-  <div>
-    <h1>Dashboard</h1>
-    <p>This is the dashboard content.</p>
-  </div>
-);
-
 const UsersContent = () => (
   <div>
     <h1>Users</h1>
     <p>This is the users content.</p>
-  </div>
-);
-
-const SettingsContent = () => (
-  <div>
-    <h1>Settings</h1>
-    <p>This is the settings content.</p>
   </div>
 );
 
