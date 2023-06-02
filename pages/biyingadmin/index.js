@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import Orders from './components/orders';
+import SPS from './components/sps';
 import fs from 'fs';
 import https from 'https';
 
@@ -16,12 +17,18 @@ export async function getServerSideProps() {
     rejectUnauthorized: false,
   };
 
-  const sslConfiguredAgent = new https.Agent(httpOptions);
+ const sslConfiguredAgent = new https.Agent(httpOptions);
 
   // Fetch data from an API or perform any data fetching logic
-  const [allOrdersDataRes, allProvincesDataRes, allCitiesDataRes] =
+  const [allOrdersDataRes, allProvidersDataRes, allProvincesDataRes, allCitiesDataRes, allEducationsDataRes] =
     await Promise.all([
       fetch(process.env.getAllOrdersUrl, {
+        headers: {
+          Accept: "application/json",
+        },
+        agent: sslConfiguredAgent,
+      }),
+      fetch(process.env.getAllProvidersUrl, {
         headers: {
           Accept: "application/json",
         },
@@ -39,12 +46,38 @@ export async function getServerSideProps() {
         },
         agent: sslConfiguredAgent,
       }),
+      fetch(process.env.getAllEducationUrl, {
+        headers: {
+          Accept: "application/json",
+        },
+        agent: sslConfiguredAgent,
+      }),
     ]);
 
-
-  //Orders data
+  //order data
     const ordersResData = await allOrdersDataRes.json();
     const ordersData = await ordersResData.data;
+  
+  //provider data
+    const allProvidersData = await allProvidersDataRes.json();
+    const providersData = await allProvidersData.data;
+
+    const combinedProvidersData = providersData.reduce((accumulator, item) => {
+      const providerId = item.providerId;
+      const existingItemIndex = accumulator.findIndex(
+        accItem => accItem.providerId === providerId
+      );
+  
+      if (existingItemIndex !== -1) {
+        // If the providerId already exists in the accumulator, combine the titles
+        accumulator[existingItemIndex].title += `, ${item.title}`;
+      } else {
+        // If the providerId does not exist, add a new item to the accumulator
+        accumulator.push({ ...item });
+      }
+  
+      return accumulator;
+    }, []);
    
   //Provinces data 
     const provincesResData = await allProvincesDataRes.json();
@@ -52,18 +85,25 @@ export async function getServerSideProps() {
 
   //Cities data
     const allCitiesResData = await allCitiesDataRes.json();
-    const citiesData = await allCitiesResData.data;  
+    const citiesData = await allCitiesResData.data;
+
+  //Cities data
+    const allEducationsData = await allEducationsDataRes.json();
+    const educationsData = await allEducationsData.data;
+      
   
   return {
     props: {
       ordersData,
+      combinedProvidersData,
       provincesData,
-      citiesData
+      citiesData,
+      educationsData
     },
   };
 }
 
-const Dashboard = ({ ordersData, provincesData, citiesData }) => {
+const Dashboard = ({ ordersData, combinedProvidersData, provincesData, citiesData, educationsData }) => {
   const [selectedMenuItem, setSelectedMenuItem] = useState('orders');
 
   const handleMenuClick = ({ key }) => {
@@ -77,7 +117,7 @@ const Dashboard = ({ ordersData, provincesData, citiesData }) => {
       contentComponent = <Orders orders={ordersData} provinces={provincesData} cities={citiesData} />;
       break;
     case 'sps':
-      contentComponent = <UsersContent />;
+      contentComponent = <SPS providers={combinedProvidersData} provinces={provincesData} cities={citiesData} educations={educationsData}/>;
       break;
     default:
      break;
@@ -104,12 +144,5 @@ const Dashboard = ({ ordersData, provincesData, citiesData }) => {
     </Layout>
   );
 };
-
-const UsersContent = () => (
-  <div>
-    <h1>Users</h1>
-    <p>This is the users content.</p>
-  </div>
-);
 
 export default Dashboard;

@@ -16,7 +16,7 @@ const nextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
-  reactStrictMode: true,
+  reactStrictMode: false,
   env: {
     baseApiUrl:'https://localhost:3001',
     allCategoriesApiUrl: 'https://localhost:3001/categoriesAll',
@@ -26,6 +26,8 @@ const nextConfig = {
     getOrderDetailsApiUrl: 'https://localhost:3001/orderByOrderId?orderId=',
     insertServiceProviderUrl: 'https://localhost:3001/insertProvider',
     getAllOrdersUrl:'https://localhost:3001/ordersFilter',
+    getAllProvidersUrl:'https://localhost:3001/providersFilter',
+    getAllEducationUrl:'https://localhost:3001/educationsAll',
     TWILIO_ACCOUNT_SID:"AC3e19c2e32c6c3586798e7a42d473d37b",
     TWILIO_AUTH_TOKEN:"ecec5c6dc4a3f9b1f5fce99e02aee9f2",
   },
