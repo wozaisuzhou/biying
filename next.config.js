@@ -25,6 +25,7 @@ const nextConfig = {
     insertOrderApiUrl: 'https://localhost:3001/insertOrder',
     getOrderDetailsApiUrl: 'https://localhost:3001/orderByOrderId?orderId=',
     insertServiceProviderUrl: 'https://localhost:3001/insertProvider',
+    getAllOrdersUrl:'https://localhost:3001/ordersFilter',
     TWILIO_ACCOUNT_SID:"AC3e19c2e32c6c3586798e7a42d473d37b",
     TWILIO_AUTH_TOKEN:"ecec5c6dc4a3f9b1f5fce99e02aee9f2",
   },
