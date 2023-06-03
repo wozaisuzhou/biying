@@ -160,29 +160,29 @@ export default function CategoryOrderForm({
           </Divider>
           <div>
             <Form id="orderForm" onSubmit={handleSubmit(onSubmit)}>
-              <div>
-                {subCategories.map((subCategory, index) => {
-                  const subCategoryTitles = JSON.parse(subCategory.title);
-                  return (
-                    <label key={index} className="cursor-pointer label">
-                      <span className="label-text">{subCategoryTitles.zh}</span>
-                      <Controller
-                        name="categoryId"
-                        control={control}
-                        render={({ field }) => (
-                          <Radio
-                            name="categoryId"
-                            color="primary"
-                            value={subCategory.id}
-                            onChange={(value) => field.onChange(value)}
-                          />
-                        )}
-                      />
-                    </label>
-                  );
-                })}
-                <p className="pt-2 text-red-400">{errors.categoryId?.message}</p>
-              </div>
+            <div>
+  {subCategories.map((subCategory, index) => {
+    const subCategoryTitles = JSON.parse(subCategory.title);
+    return (
+      <label key={index} className="cursor-pointer label border-b border-black">
+        <span className="label-text">{subCategoryTitles.zh}</span>
+        <Controller
+          name="categoryId"
+          control={control}
+          render={({ field }) => (
+            <Radio
+              name="categoryId"
+              color="primary"
+              value={subCategory.id}
+              onChange={(value) => field.onChange(value)}
+            />
+          )}
+        />
+      </label>
+    );
+  })}
+  <p className="pt-2 text-red-400">{errors.categoryId?.message}</p>
+</div>
               <div className="pt-10 pl-2 form-control w-full max-w-xs">
                 <label className="label">
                   <span className="label-text">您的具体要求： </span>
