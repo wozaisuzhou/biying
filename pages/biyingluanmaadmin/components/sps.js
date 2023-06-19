@@ -74,7 +74,7 @@ const SPS = ({ providers, provinces, cities, educations }) => {
 
   const columns = [
     {
-      title: 'Provider ID',
+      title: '服务者 ID',
       dataIndex: 'providerId',
       key: 'providerId',
       render: (text, record) => (
@@ -88,22 +88,22 @@ const SPS = ({ providers, provinces, cities, educations }) => {
       ),
     },
     {
-      title: 'First Name',
+      title: '名',
       dataIndex: 'firstName',
       key: 'name',
     },
     {
-      title: 'Last Name',
+      title: '姓',
       dataIndex: 'lastName',
       key: 'lastName',
     },
     {
-      title: 'email',
+      title: '邮箱',
       dataIndex: 'email',
       key: 'email',
     },
     {
-      title: 'Cell',
+      title: '手机',
       dataIndex: 'cellphone',
       key: 'cellphone',
     },
@@ -129,19 +129,19 @@ const SPS = ({ providers, provinces, cities, educations }) => {
       >
         {selectedOrder && (
           <div>
-            <p>Provider ID: {selectedOrder.providerId}</p>
-            <p>First Name: {selectedOrder.firstName}</p>
-            <p>Last Name: {selectedOrder.lastName}</p>
-            <p>Address: {selectedOrder.address}</p>
-            <p>City: {selectedOrder.cityName}</p>
-            <p>Province: {selectedOrder.provinceName}</p>
-            <p>Year Served: {selectedOrder.yearsServed}</p>
-            <p>Wechat: {selectedOrder.wechat}</p>
-            <p>Post Code: {selectedOrder.postCode}</p>
-            <p>Cell: {selectedOrder.cellphone}</p>
-            <p>Email: {selectedOrder.email}</p>
-            <p>Self Intro: {selectedOrder.selfIntro}</p>
-            <p>Service: {selectedOrder.title}</p>
+            <p>服务者 ID: {selectedOrder.providerId}</p>
+            <p>名: {selectedOrder.firstName}</p>
+            <p>姓: {selectedOrder.lastName}</p>
+            <p>地址: {selectedOrder.address}</p>
+            <p>城市: {selectedOrder.cityName}</p>
+            <p>省份: {selectedOrder.provinceName}</p>
+            <p>服务年限: {selectedOrder.yearsServed}</p>
+            <p>微信: {selectedOrder.wechat}</p>
+            <p>邮编: {selectedOrder.postCode}</p>
+            <p>手机: {selectedOrder.cellphone}</p>
+            <p>邮箱: {selectedOrder.email}</p>
+            <p>自我介绍: {selectedOrder.selfIntro}</p>
+            <p>服务内容: {selectedOrder.title}</p>
             {/* Display other order details */}
           </div>
         )}

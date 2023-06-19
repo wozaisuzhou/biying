@@ -50,7 +50,7 @@ const Orders = ({ orders, provinces, cities }) => {
   }));
 
   const filteredData = modifiedData.filter((item) => {
-    const { orderId, name, title, description, cellphone, email, address, startTime, provinceName, cityName } = item;
+    const { orderId, name, title, description, cellphone, email, address, startTime, provinceName, cityName, ctime } = item;
     const lowerCaseSearchQuery = searchQuery.toLowerCase();
     return (
       orderId.toLowerCase().includes(lowerCaseSearchQuery) ||
@@ -62,13 +62,14 @@ const Orders = ({ orders, provinces, cities }) => {
       address.toLowerCase().includes(lowerCaseSearchQuery) ||
       startTime.toLowerCase().includes(lowerCaseSearchQuery) ||
       provinceName.toLowerCase().includes(lowerCaseSearchQuery) ||
-      cityName.toLowerCase().includes(lowerCaseSearchQuery)
+      cityName.toLowerCase().includes(lowerCaseSearchQuery) ||
+      ctime.toLowerCase().includes(lowerCaseSearchQuery)
     );
   });
 
   const columns = [
     {
-      title: 'Order ID',
+      title: '订单 ID',
       dataIndex: 'orderId',
       key: 'orderId',
       render: (text, record) => (
@@ -82,24 +83,29 @@ const Orders = ({ orders, provinces, cities }) => {
       ),
     },
     {
-      title: 'Customer Name',
+      title: '客户名字',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'City',
+      title: '城市',
       dataIndex: 'cityName',
       key: 'cityName',
     },
     {
-      title: 'Address',
+      title: '地址',
       dataIndex: 'address',
       key: 'address',
     },
     {
-      title: 'Cell',
+      title: '手机',
       dataIndex: 'cellphone',
       key: 'cellphone',
+    },
+    {
+      title: '下订单时间',
+      dataIndex: 'ctime',
+      key: 'ctime',
     },
     // Rest of the columns...
   ];
@@ -123,19 +129,19 @@ const Orders = ({ orders, provinces, cities }) => {
       >
         {selectedOrder && (
           <div>
-            <p>Order ID: {selectedOrder.orderId}</p>
-            <p>Customer Name: {selectedOrder.name}</p>
-            <p>Service requirement: {selectedOrder.title}</p>
-            <p>Order description: {selectedOrder.description}</p>
-            <p>Address: {selectedOrder.address}</p>
-            <p>City: {selectedOrder.cityName}</p>
-            <p>Province: {selectedOrder.provinceName}</p>
-            <p>StartTime: {selectedOrder.startTime}</p>
-            <p>EndTime: {selectedOrder.endTime}</p>
-            <p>Budget: {selectedOrder.budget}</p>
-            <p>Cell: {selectedOrder.cellphone}</p>
-            <p>Email: {selectedOrder.email}</p>
-            <p>Status: {selectedOrder.statusVal}</p>
+            <p>订单 ID: {selectedOrder.orderId}</p>
+            <p>客户名字: {selectedOrder.name}</p>
+            <p>服务要求: {selectedOrder.title}</p>
+            <p>订单内容: {selectedOrder.description}</p>
+            <p>地址: {selectedOrder.address}</p>
+            <p>城市: {selectedOrder.cityName}</p>
+            <p>省份: {selectedOrder.provinceName}</p>
+            <p>服务开始时间: {selectedOrder.startTime}</p>
+            <p>服务结束时间: {selectedOrder.endTime}</p>
+            <p>预算: {selectedOrder.budget}</p>
+            <p>手机: {selectedOrder.cellphone}</p>
+            <p>邮箱: {selectedOrder.email}</p>
+            <p>订单状态: {selectedOrder.statusVal}</p>
             {/* Display other order details */}
           </div>
         )}
