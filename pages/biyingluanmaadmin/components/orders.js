@@ -50,7 +50,7 @@ const Orders = ({ orders, provinces, cities }) => {
   }));
 
   const filteredData = modifiedData.filter((item) => {
-    const { orderId, name, title, description, cellphone, email, address, startTime, provinceName, cityName, ctime } = item;
+    const { orderId, name, title, description, cellphone, email, wechat, address, startTime, provinceName, cityName, ctime } = item;
     const lowerCaseSearchQuery = searchQuery.toLowerCase();
     return (
       orderId.toLowerCase().includes(lowerCaseSearchQuery) ||
@@ -59,6 +59,7 @@ const Orders = ({ orders, provinces, cities }) => {
       description.toLowerCase().includes(lowerCaseSearchQuery) ||
       cellphone.toLowerCase().includes(lowerCaseSearchQuery) ||
       email.toLowerCase().includes(lowerCaseSearchQuery) ||
+      wechat.toLowerCase().includes(lowerCaseSearchQuery) ||
       address.toLowerCase().includes(lowerCaseSearchQuery) ||
       startTime.toLowerCase().includes(lowerCaseSearchQuery) ||
       provinceName.toLowerCase().includes(lowerCaseSearchQuery) ||
@@ -96,6 +97,11 @@ const Orders = ({ orders, provinces, cities }) => {
       title: '地址',
       dataIndex: 'address',
       key: 'address',
+    },
+    {
+      title: '微信号',
+      dataIndex: 'wechat',
+      key: 'wechat',
     },
     {
       title: '手机',
@@ -140,6 +146,7 @@ const Orders = ({ orders, provinces, cities }) => {
             <p>服务结束时间: {selectedOrder.endTime}</p>
             <p>预算: {selectedOrder.budget}</p>
             <p>手机: {selectedOrder.cellphone}</p>
+            <p>微信号: {selectedOrder.wechat}</p>
             <p>邮箱: {selectedOrder.email}</p>
             <p>订单状态: {selectedOrder.statusVal}</p>
             {/* Display other order details */}
