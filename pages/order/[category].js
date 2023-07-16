@@ -330,7 +330,7 @@ export default function CategoryOrderForm({
               </div>
               <div className="pt-2 pl-2 form-control w-full max-w-xs">
                 <label className="label">
-                  <span className="label-text">地址:</span>
+                  <span className="label-text">目的地/学校/期望城市:</span>
                 </label>
                 <Controller
                   name="address"
@@ -348,7 +348,7 @@ export default function CategoryOrderForm({
               </div>
               <div className="pt-2 pl-2 w-80 max-w-xs">
                 <label className="label">
-                  <span className="label-text">预算:</span>
+                  <span className="label-text">您的服务预算:</span>
                 </label>
 
                 <Controller
